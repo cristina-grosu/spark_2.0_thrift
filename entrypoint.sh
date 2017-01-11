@@ -142,6 +142,34 @@ echo "Using SPARK_MASTER_URL=$SPARK_MASTER_URL"
 #export SPARK_OPTS="--driver-java-options=-Xms1024M --driver-java-options=-Dlog4j.logLevel=info --master $SPARK_MASTER_URL"
 export SPARK_OPTS="--driver-java-options=-$JAVA_DRIVER_OPTS --driver-java-options=-Dlog4j.logLevel=info --master $SPARK_MASTER_URL"
 
+# Get Spark Thrift Postgresql connector
+wget http://central.maven.org/maven2/org/postgresql/postgresql/9.4.1211/postgresql-9.4.1211.jar -P /opt/spark-2.0.0-bin-hadoop2.7/jars/
+
+if [ "$POSTGRES_HOSTNAME" != "" ]; then
+	sed "s/POSTGRES_HOSTNAME/$POSTGRES_HOSTNAME/" /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml >> /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml.tmp && \
+	mv /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml.tmp /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml
+fi
+
+if [ "$POSTGRES_PORT" != "" ]; then
+	sed "s/POSTGRES_PORT/$POSTGRES_PORT/" /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml >> /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml.tmp && \
+	mv /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml.tmp /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml
+fi
+
+if [ "$POSTGRES_DB" != "" ]; then
+	sed "s/POSTGRES_DB/$POSTGRES_DB/" /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml >> /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml.tmp && \
+	mv /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml.tmp /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml
+fi
+
+if [ "$POSTGRES_USER" != "" ]; then
+	sed "s/POSTGRES_USER/$POSTGRES_USER/" /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml >> /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml.tmp && \
+	mv /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml.tmp /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml
+fi
+
+if [ "$POSTGRES_PASSWORD" != "" ]; then
+	sed "s/POSTGRES_PASSWORD/$POSTGRES_PASSWORD/" /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml >> /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml.tmp && \
+	mv /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml.tmp /opt/spark-2.0.0-bin-hadoop2.7/conf/hive-site.xml
+fi
+
 if [ "$MODE" = "" ]; then
 MODE=$1
 fi
