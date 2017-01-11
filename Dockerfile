@@ -113,6 +113,10 @@ RUN wget https://www.dropbox.com/s/ogautca0vbcvpsd/DataLab%20Getting%20Started%2
 RUN wget https://www.dropbox.com/s/oalyod343ku9s3x/DataLab%20Getting%20Started%20in%20R.ipynb?dl=1 -O /user/notebooks/DataLab\ Getting\ Started\ in\ R.ipynb
 RUN wget https://www.dropbox.com/s/yyrilocrsy874wt/DataLab%20Getting%20Started%20in%20Python.ipynb?dl=1 -O /user/notebooks/DataLab\ Getting\ Started\ in\ Python.ipynb
 
+
+# Add hive-site.xml conf for thrift server
+ADD hive-site.xml /opt/spark-2.0.0-bin-hadoop2.7/conf/
+
 #        SparkMaster  SparkMasterWebUI  SparkWorkerWebUI REST     Jupyter Spark
 EXPOSE    7077        8080              8081              6066    8888      4040     88
 
